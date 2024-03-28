@@ -14,12 +14,17 @@ function App() {
 
   useEffect(() => {
     async function getCountries() {
-      let response = await fetch(
-        "https://crio-location-selector.onrender.com/countries"
-      );
-      let responseJSON = await response.json();
-      console.log(responseJSON, "responseJSON");
-      setCountries(responseJSON);
+      try {
+
+        let response = await fetch(
+          "https://crio-location-selector.onrender.com/countries"
+          );
+          let responseJSON = await response.json();
+          console.log(responseJSON, "responseJSON");
+          setCountries(responseJSON);
+        } catch (error) {
+          console.log(error, "get countries error");
+        }
     }
     getCountries();
   }, []);
@@ -49,7 +54,7 @@ function App() {
         let responseJSON = await response.json();
         setCities(responseJSON);
       } catch (error) {
-        console.log(error, "get countries error");
+        console.log(error, "get cities error");
       }
     }
     if (selectedState !== "") {
