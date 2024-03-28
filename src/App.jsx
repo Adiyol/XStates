@@ -31,11 +31,16 @@ function App() {
 
   useEffect(() => {
     async function getStates() {
-      let response = await fetch(
-        `https://crio-location-selector.onrender.com/country=${selectedCountry}/states`
-      );
-      let responseJSON = await response.json();
-      setStates(responseJSON);
+      try {
+
+        let response = await fetch(
+          `https://crio-location-selector.onrender.com/country=${selectedCountry}/states`
+          );
+          let responseJSON = await response.json();
+          setStates(responseJSON);
+        } catch(error) {
+          console.log(error, "get states error");
+        }
     }
     if (selectedCountry !== "") {
       getStates();
