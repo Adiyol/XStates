@@ -42,11 +42,15 @@ function App() {
 
   useEffect(() => {
     async function getCities() {
-      let response = await fetch(
-        `https://crio-location-selector.onrender.com/country=${selectedCountry}/state=${selectedState}/cities`
-      );
-      let responseJSON = await response.json();
-      setCities(responseJSON);
+      try {
+        let response = await fetch(
+          `https://crio-location-selector.onrender.com/country=${selectedCountry}/state=${selectedState}/cities`
+        );
+        let responseJSON = await response.json();
+        setCities(responseJSON);
+      } catch (error) {
+        console.log(error, "get countries error");
+      }
     }
     if (selectedState !== "") {
       getCities();
@@ -100,7 +104,15 @@ function App() {
             ))}
           </select>
         </div>
-        {selectedCity && <p>you selected <span style={{fontSize: "20px", fontWeight: "bold"}}>{selectedCity}</span>, {selectedState}, {selectedCountry}</p>}
+        {selectedCity && (
+          <p>
+            You selected{" "}
+            <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+              {selectedCity}
+            </span>
+            , {selectedState}, {selectedCountry}
+          </p>
+        )}
       </div>
     </>
   );
